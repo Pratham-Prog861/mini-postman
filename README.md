@@ -39,7 +39,7 @@ A modern, lightweight API testing tool built with Next.js 16, React 19, and Type
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/Pratham-Prog861/mini-postman.git
 cd mini-postman
 
 # Install dependencies
@@ -181,10 +181,6 @@ npm start
 # Run linter
 npm run lint
 ```
-
-### Deploy to Vercel
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=<your-repo-url>)
 
 ## 📝 License
 

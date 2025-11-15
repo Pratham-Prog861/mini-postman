@@ -32,7 +32,7 @@ const features = [
   {
     icon: Terminal,
     title: "Keyboard Shortcuts",
-    description: "Ctrl+Enter to send, Ctrl+K to focus URL bar",
+    description: "Ctrl+Enter to send, Ctrl+K to focus URL bar and more",
   },
 ]
 

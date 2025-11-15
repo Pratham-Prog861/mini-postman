@@ -73,6 +73,7 @@ export default function ToolPage() {
       <header className="border-b border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
+            <Link href="/">
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-linear-to-br from-primary to-primary/50">
                 <Zap className="h-5 w-5 text-primary-foreground" />
@@ -82,6 +83,7 @@ export default function ToolPage() {
                 <p className="text-xs text-zinc-400">Lightweight API Testing Tool</p>
               </div>
             </div>
+            </Link>
             <Link href="/">
               <Button variant="ghost" size="sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />

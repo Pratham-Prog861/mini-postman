@@ -6,8 +6,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { JsonView, defaultStyles } from 'react-json-view-lite';
-import 'react-json-view-lite/dist/index.css';
 import type { ApiResponse } from '@/types';
 
 interface ResponseViewerProps {
@@ -77,37 +75,21 @@ export function ResponseViewer({ response }: ResponseViewerProps) {
         </div>
       )}
 
-      <Tabs defaultValue="body" className="flex-1 flex flex-col">
-        <TabsList className="mx-4 mt-4">
+      <Tabs defaultValue="body" className="flex-1 flex flex-col min-h-0">
+        <TabsList className="mx-4 mt-4 shrink-0">
           <TabsTrigger value="body">Body</TabsTrigger>
           <TabsTrigger value="headers">Headers</TabsTrigger>
           <TabsTrigger value="raw">Raw</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="body" className="flex-1 overflow-auto p-4 mt-0">
+        <TabsContent value="body" className="flex-1 overflow-y-auto overflow-x-hidden p-4 mt-0 min-h-0">
           {response.data ? (
             typeof response.data === 'object' ? (
-              <div className="json-viewer-dark">
-                <JsonView
-                  data={response.data}
-                  shouldExpandNode={(level) => level < 2}
-                  style={{
-                    ...defaultStyles,
-                    container: 'font-mono text-sm',
-                    basicChildStyle: 'padding-left: 1rem;',
-                    label: 'color: hsl(var(--primary)); font-weight: 500;',
-                    nullValue: 'color: hsl(var(--muted-foreground));',
-                    undefinedValue: 'color: hsl(var(--muted-foreground));',
-                    numberValue: 'color: #60a5fa;',
-                    stringValue: 'color: #34d399;',
-                    booleanValue: 'color: #f472b6;',
-                    otherValue: 'color: hsl(var(--foreground));',
-                    punctuation: 'color: hsl(var(--muted-foreground));',
-                  }}
-                />
-              </div>
+              <pre className="font-mono text-sm whitespace-pre text-foreground bg-muted/30 p-4 rounded-lg w-full">
+                {JSON.stringify(response.data, null, 2)}
+              </pre>
             ) : (
-              <pre className="font-mono text-sm whitespace-pre-wrap text-foreground">
+              <pre className="font-mono text-sm whitespace-pre-wrap text-foreground bg-muted/30 p-4 rounded-lg w-full">
                 {String(response.data)}
               </pre>
             )
@@ -116,7 +98,7 @@ export function ResponseViewer({ response }: ResponseViewerProps) {
           )}
         </TabsContent>
 
-        <TabsContent value="headers" className="flex-1 overflow-auto p-4 mt-0">
+        <TabsContent value="headers" className="flex-1 overflow-y-auto overflow-x-hidden p-4 mt-0 min-h-0">
           {Object.keys(response.headers).length > 0 ? (
             <div className="space-y-2">
               {Object.entries(response.headers).map(([key, value]) => (
@@ -131,8 +113,8 @@ export function ResponseViewer({ response }: ResponseViewerProps) {
           )}
         </TabsContent>
 
-        <TabsContent value="raw" className="flex-1 overflow-auto p-4 mt-0">
-          <pre className="font-mono text-sm whitespace-pre-wrap text-foreground">
+        <TabsContent value="raw" className="flex-1 overflow-y-auto overflow-x-hidden p-4 mt-0 min-h-0">
+          <pre className="font-mono text-sm whitespace-pre text-foreground w-full">
             {typeof response.data === 'string'
               ? response.data
               : JSON.stringify(response.data, null, 2)}

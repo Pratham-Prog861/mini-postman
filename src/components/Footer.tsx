@@ -104,9 +104,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <motion.a
-                    href="https://github.com/Pratham-Prog861/mini-postman"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/docs"
                     className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors inline-block"
                     whileHover={{ x: 3 }}
                   >
@@ -132,14 +130,14 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-6 text-xs text-zinc-500">
               <motion.a
-                href="#"
+                href="/privacy"
                 className="hover:text-zinc-400 transition-colors"
                 whileHover={{ y: -2 }}
               >
                 Privacy Policy
               </motion.a>
               <motion.a
-                href="#"
+                href="/terms"
                 className="hover:text-zinc-400 transition-colors"
                 whileHover={{ y: -2 }}
               >

@@ -120,3 +120,42 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom styles for JSON viewer in dark mode */
+.json-viewer-dark {
+  color: hsl(var(--foreground));
+}
+
+.json-viewer-dark .json-view-lite {
+  background: transparent !important;
+}
+
+.json-viewer-dark .json-view-lite * {
+  color: inherit;
+}
+
+/* Override react-json-view-lite default styles for better visibility */
+.json-view-lite {
+  background: transparent !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.json-view-lite .json-view-lite-key {
+  color: hsl(var(--primary)) !important;
+}
+
+.json-view-lite .json-view-lite-string {
+  color: #34d399 !important;
+}
+
+.json-view-lite .json-view-lite-number {
+  color: #60a5fa !important;
+}
+
+.json-view-lite .json-view-lite-boolean {
+  color: #f472b6 !important;
+}
+
+.json-view-lite .json-view-lite-null {
+  color: hsl(var(--muted-foreground)) !important;
+}

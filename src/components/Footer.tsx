@@ -24,7 +24,7 @@ const Footer = () => {
               </p>
               <div className="flex items-center gap-3">
                 <motion.a
-                  href="https://github.com"
+                  href="https://github.com/Pratham-Prog861/mini-postman"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-9 h-9 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-50 transition-colors"
@@ -34,7 +34,7 @@ const Footer = () => {
                   <Github className="h-4 w-4" />
                 </motion.a>
                 <motion.a
-                  href="https://"
+                  href="https://www.linkedin.com/in/pratham-darji-b704092a2/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-9 h-9 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-50 transition-colors"
@@ -93,7 +93,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <motion.a
-                    href="https://github.com"
+                    href="https://github.com/Pratham-Prog861/mini-postman"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors inline-block"
@@ -104,7 +104,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <motion.a
-                    href="https://github.com"
+                    href="https://github.com/Pratham-Prog861/mini-postman"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors inline-block"

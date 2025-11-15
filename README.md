@@ -65,14 +65,14 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 #### GET Request
 
-```
+```bash
 Method: GET
 URL: https://jsonplaceholder.typicode.com/posts/1
 ```
 
 #### POST Request
 
-```
+```bash
 Method: POST
 URL: https://jsonplaceholder.typicode.com/posts
 Headers:
@@ -99,7 +99,7 @@ Body:
 
 ## 🎨 Project Structure
 
-```
+```bash
 mini-postman/
 ├── src/
 │   ├── app/

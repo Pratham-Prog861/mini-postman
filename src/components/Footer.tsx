@@ -69,13 +69,18 @@ const Footer = () => {
                   </motion.a>
                 </li>
                 <li>
-                  <motion.a
-                    href="#tech-stack"
-                    className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors inline-block"
-                    whileHover={{ x: 3 }}
-                  >
-                    Tech Stack
-                  </motion.a>
+                  <motion.div whileHover={{ x: 3 }}>
+                    <Link href="/compare" className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors inline-block">
+                      Compare
+                    </Link>
+                  </motion.div>
+                </li>
+                <li>
+                  <motion.div whileHover={{ x: 3 }}>
+                    <Link href="/blog" className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors inline-block">
+                      Blog
+                    </Link>
+                  </motion.div>
                 </li>
               </ul>
             </div>

@@ -59,15 +59,18 @@ export function Navbar() {
               How It Works
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
             </motion.a>
-            <motion.a
-              href="#tech-stack"
-              onClick={(e) => handleSmoothScroll(e, '#tech-stack')}
-              className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors relative group"
-              whileHover={{ y: -2 }}
-            >
-              Tech Stack
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
-            </motion.a>
+            <motion.div whileHover={{ y: -2 }}>
+              <Link href="/compare" className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors relative group">
+                Compare
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ y: -2 }}>
+              <Link href="/blog" className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors relative group">
+                Blog
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+              </Link>
+            </motion.div>
           </div>
 
           {/* CTA Buttons */}
@@ -147,13 +150,20 @@ export function Navbar() {
                 >
                   How It Works
                 </a>
-                <a
-                  href="#tech-stack"
-                  onClick={(e) => handleSmoothScroll(e, '#tech-stack')}
+                <Link
+                  href="/compare"
+                  onClick={() => setMobileMenuOpen(false)}
                   className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors"
                 >
-                  Tech Stack
-                </a>
+                  Compare
+                </Link>
+                <Link
+                  href="/blog"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors"
+                >
+                  Blog
+                </Link>
                 <Button asChild className="w-full">
                   <Link href="/tool">Get Started</Link>
                 </Button>

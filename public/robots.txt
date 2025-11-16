@@ -1,0 +1,6 @@
+# Allow all search engines to crawl
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://mini-postman-rouge.vercel.app/sitemap.xml

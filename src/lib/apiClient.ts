@@ -124,14 +124,64 @@ export async function sendApiRequest(
         if (axiosError.code === "ECONNABORTED") {
           errorMessage = "Request Timeout";
           errorDetails = "The request took too long to complete (30s timeout)";
+          return {
+            data: null,
+            headers: {},
+            status: 0,
+            statusText: errorMessage,
+            time,
+            error: errorDetails,
+            errorType: "TIMEOUT",
+          };
         } else if (axiosError.code === "ERR_NETWORK") {
           errorMessage = "Network Error";
-          errorDetails =
-            "Could not connect to the server. This might be due to CORS, network issues, or the server being down.";
+
+          // Check for specific HTTPS -> Localhost issue
+          const isHttps =
+            typeof window !== "undefined" &&
+            window.location.protocol === "https:";
+          const isLocalhostTarget =
+            url.includes("localhost") || url.includes("127.0.0.1");
+
+          if (isHttps && isLocalhostTarget) {
+            errorMessage = "Restricted Access";
+            errorDetails =
+              "Browsers block public websites from accessing localhost. You must enable 'Private Network Access' headers on your backend or use a tunnel (ngrok).";
+            return {
+              data: null,
+              headers: {},
+              status: 0,
+              statusText: errorMessage,
+              time,
+              error: errorDetails,
+              errorType: "RESTRICTED_ACCESS",
+            };
+          } else {
+            errorDetails =
+              "Could not connect to the server. This might be due to CORS, network issues, or the server being down.";
+            return {
+              data: null,
+              headers: {},
+              status: 0,
+              statusText: errorMessage,
+              time,
+              error: errorDetails,
+              errorType: "NETWORK_ERROR",
+            };
+          }
         } else if (axiosError.message.includes("CORS")) {
           errorMessage = "CORS Error";
           errorDetails =
             "The server does not allow requests from this origin. Try using a CORS proxy or enable CORS on the server.";
+          return {
+            data: null,
+            headers: {},
+            status: 0,
+            statusText: errorMessage,
+            time,
+            error: errorDetails,
+            errorType: "CORS_ERROR",
+          };
         } else {
           errorDetails = axiosError.message;
         }
@@ -143,6 +193,7 @@ export async function sendApiRequest(
           statusText: errorMessage,
           time,
           error: errorDetails,
+          errorType: "UNKNOWN",
         };
       }
 

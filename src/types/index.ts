@@ -33,6 +33,12 @@ export interface ApiResponse {
   statusText: string;
   time: number;
   error?: string;
+  errorType?:
+    | "NETWORK_ERROR"
+    | "CORS_ERROR"
+    | "RESTRICTED_ACCESS"
+    | "TIMEOUT"
+    | "UNKNOWN";
 }
 
 export interface ApiError {

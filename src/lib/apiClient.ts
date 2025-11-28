@@ -40,6 +40,7 @@ function headersToObject(headers: RequestHeader[]): Record<string, string> {
 
 /**
  * Main API client function to send HTTP requests
+ * Uses a server-side proxy to bypass CORS restrictions
  */
 export async function sendApiRequest(
   method: HttpMethod,
@@ -76,38 +77,52 @@ export async function sendApiRequest(
   const startTime = performance.now();
 
   try {
-    const config: AxiosRequestConfig = {
-      method,
-      url,
-      headers: headersToObject(headers),
-      timeout: 30000, // 30 second timeout
-    };
-
-    // Add body for methods that support it
+    // Prepare data for proxy
+    let requestData = null;
     if (["POST", "PUT", "PATCH"].includes(method) && body.trim()) {
       try {
-        config.data = JSON.parse(body);
-        // Set content-type if not already set
-        if (!config.headers?.["Content-Type"]) {
-          config.headers = {
-            ...config.headers,
-            "Content-Type": "application/json",
-          };
-        }
+        requestData = JSON.parse(body);
       } catch {
-        config.data = body;
+        requestData = body;
       }
     }
 
-    const response = await axios(config);
+    const headersObj = headersToObject(headers);
+
+    // Send request through our proxy API route
+    const response = await axios.post(
+      "/api/proxy",
+      {
+        method,
+        url,
+        headers: headersObj,
+        data: requestData,
+      },
+      {
+        timeout: 30000, // 30 second timeout
+      }
+    );
+
     const endTime = performance.now();
 
+    // Check if the proxy returned an error response
+    if (response.data.error && response.data.status === 0) {
+      return {
+        data: response.data.data,
+        headers: response.data.headers || {},
+        status: response.data.status,
+        statusText: response.data.statusText,
+        time: response.data.time || Math.round(endTime - startTime),
+        error: response.data.error,
+      };
+    }
+
     return {
-      data: response.data,
-      headers: response.headers as Record<string, string>,
-      status: response.status,
-      statusText: response.statusText,
-      time: Math.round(endTime - startTime),
+      data: response.data.data,
+      headers: response.data.headers || {},
+      status: response.data.status,
+      statusText: response.data.statusText,
+      time: response.data.time || Math.round(endTime - startTime),
     };
   } catch (error) {
     const endTime = performance.now();
@@ -116,7 +131,22 @@ export async function sendApiRequest(
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
 
-      // Network errors (CORS, DNS, connection refused, etc.)
+      // Check if it's a response from our proxy with error details
+      if (axiosError.response?.data) {
+        const errorData = axiosError.response.data as any;
+        if (errorData.error) {
+          return {
+            data: errorData.data || null,
+            headers: errorData.headers || {},
+            status: errorData.status || 0,
+            statusText: errorData.statusText || "Error",
+            time: errorData.time || time,
+            error: errorData.error,
+          };
+        }
+      }
+
+      // Network errors (timeout, connection issues, etc.)
       if (!axiosError.response) {
         let errorMessage = "Network Error";
         let errorDetails = "";
@@ -124,64 +154,10 @@ export async function sendApiRequest(
         if (axiosError.code === "ECONNABORTED") {
           errorMessage = "Request Timeout";
           errorDetails = "The request took too long to complete (30s timeout)";
-          return {
-            data: null,
-            headers: {},
-            status: 0,
-            statusText: errorMessage,
-            time,
-            error: errorDetails,
-            errorType: "TIMEOUT",
-          };
         } else if (axiosError.code === "ERR_NETWORK") {
           errorMessage = "Network Error";
-
-          // Check for specific HTTPS -> Localhost issue
-          const isHttps =
-            typeof window !== "undefined" &&
-            window.location.protocol === "https:";
-          const isLocalhostTarget =
-            url.includes("localhost") || url.includes("127.0.0.1");
-
-          if (isHttps && isLocalhostTarget) {
-            errorMessage = "Restricted Access";
-            errorDetails =
-              "Browsers block public websites from accessing localhost. You must enable 'Private Network Access' headers on your backend or use a tunnel (ngrok).";
-            return {
-              data: null,
-              headers: {},
-              status: 0,
-              statusText: errorMessage,
-              time,
-              error: errorDetails,
-              errorType: "RESTRICTED_ACCESS",
-            };
-          } else {
-            errorDetails =
-              "Could not connect to the server. This might be due to CORS, network issues, or the server being down.";
-            return {
-              data: null,
-              headers: {},
-              status: 0,
-              statusText: errorMessage,
-              time,
-              error: errorDetails,
-              errorType: "NETWORK_ERROR",
-            };
-          }
-        } else if (axiosError.message.includes("CORS")) {
-          errorMessage = "CORS Error";
           errorDetails =
-            "The server does not allow requests from this origin. Try using a CORS proxy or enable CORS on the server.";
-          return {
-            data: null,
-            headers: {},
-            status: 0,
-            statusText: errorMessage,
-            time,
-            error: errorDetails,
-            errorType: "CORS_ERROR",
-          };
+            "Could not connect to the proxy server. Please check your internet connection.";
         } else {
           errorDetails = axiosError.message;
         }
@@ -193,7 +169,6 @@ export async function sendApiRequest(
           statusText: errorMessage,
           time,
           error: errorDetails,
-          errorType: "UNKNOWN",
         };
       }
 

@@ -15,11 +15,13 @@ A modern, lightweight API testing tool built with Next.js 16, React 19, and Type
 - ⚡ **Fast & Responsive**: Smooth animations with Motion (Framer Motion)
 - 📊 **Response Viewer**: Tabbed interface for Body, Headers, and Raw response
 - 🕐 **Request History**: Automatically saves last 10 requests to localStorage
+- 🔒 **No CORS Issues**: Server-side proxy bypasses all CORS restrictions
+- 🌐 **Universal Access**: Test localhost, Render, Vercel, or any backend URL
 - ⌨️ **Keyboard Shortcuts**:
   - `Ctrl+Enter` (or `Cmd+Enter`) to send request
   - `Ctrl+K` (or `Cmd+K`) to focus URL bar
 - 📋 **Copy Response**: One-click copy to clipboard
-- 🔍 **Syntax Highlighting**: JSON responses with collapsible tree view
+- 🔍 **Syntax Highlighting**: Properly formatted JSON responses
 - 🚨 **Error Handling**: Comprehensive error messages for network, CORS, and validation issues
 - 📱 **Mobile Friendly**: Responsive design that works on all devices
 
@@ -133,11 +135,21 @@ No environment variables required! The app runs entirely in the browser.
 
 ### CORS Issues
 
-If you encounter CORS errors:
+**No more CORS problems!** 🎉
 
-1. **Use CORS-enabled APIs**: Many public APIs like JSONPlaceholder support CORS
-2. **Use a CORS proxy**: Services like `cors-anywhere` can proxy requests
-3. **Enable CORS on your server**: Add appropriate CORS headers to your API
+This app uses a built-in server-side proxy that runs on Next.js API routes. All requests are proxied through your server, which means:
+
+✅ **No CORS restrictions** - Works with any API (localhost, Render, Vercel, etc.)  
+✅ **Test localhost APIs** - Even from a deployed site  
+✅ **No external proxy needed** - Everything runs on your own server  
+✅ **Secure** - Your requests stay private
+
+The proxy automatically:
+
+- Forwards your requests server-side
+- Handles all response types (JSON, text, etc.)
+- Preserves headers and status codes
+- Bypasses browser CORS policies
 
 ## 🧪 Testing APIs
 
@@ -192,7 +204,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 🐛 Known Issues
 
-- CORS limitations when testing APIs that don't support cross-origin requests
 - localStorage has a 5-10MB limit (sufficient for 10 requests)
 
 ## 🔮 Future Enhancements

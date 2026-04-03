@@ -42,7 +42,7 @@ export default function ToolPage() {
     const result = await sendRequest(method, url, headers, body);
 
     if (result.error) {
-      if (result.errorType === "RESTRICTED_ACCESS") {
+      if (result.errorType === "LOCALHOST_BLOCKED") {
         setShowHelpDialog(true);
       } else {
         toast.error(result.error);
@@ -117,50 +117,56 @@ export default function ToolPage() {
       </header>
 
       <div className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_350px] gap-6">
           {/* Main Content */}
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0">
             {/* URL Bar */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex gap-2"
+              className="flex flex-col sm:flex-row gap-2 sm:gap-3"
             >
-              <MethodSelector value={method} onChange={setMethod} />
-              <Input
-                id="url-input"
-                type="url"
-                placeholder="https://api.example.com/endpoint"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                className="flex-1 font-mono"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleSend();
-                }}
-              />
-              <Button
-                onClick={handleSend}
-                disabled={loading || !url.trim()}
-                className="min-w-[100px]"
-              >
-                {loading ? (
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                  >
-                    <Send className="h-4 w-4" />
-                  </motion.div>
-                ) : (
-                  <>
-                    <Send className="h-4 w-4 mr-2" />
-                    Send
-                  </>
-                )}
-              </Button>
+              <div className="flex-shrink-0">
+                <MethodSelector value={method} onChange={setMethod} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <Input
+                  id="url-input"
+                  type="url"
+                  placeholder="https://api.example.com/endpoint"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  className="w-full font-mono text-sm"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSend();
+                  }}
+                />
+              </div>
+              <div className="flex-shrink-0">
+                <Button
+                  onClick={handleSend}
+                  disabled={loading || !url.trim()}
+                  className="w-full sm:w-auto min-w-[90px]"
+                >
+                  {loading ? (
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    >
+                      <Send className="h-4 w-4" />
+                    </motion.div>
+                  ) : (
+                    <>
+                      <Send className="h-4 w-4 mr-2" />
+                      <span className="hidden sm:inline">Send</span>
+                    </>
+                  )}
+                </Button>
+              </div>
             </motion.div>
 
             {/* Request Panel */}
@@ -195,7 +201,7 @@ export default function ToolPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="lg:block hidden"
+            className="lg:block hidden min-w-0"
           >
             <div className="sticky top-6 h-[calc(100vh-120px)]">
               <RequestHistory

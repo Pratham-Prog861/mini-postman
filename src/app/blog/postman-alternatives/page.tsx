@@ -59,8 +59,8 @@ export default function PostmanAlternativesPage() {
 
         <div className="prose prose-zinc dark:prose-invert max-w-none">
           <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-            Postman is great, but it's not the only option. Whether you need something lighter, faster, or with 
-            different features, there are excellent free alternatives available. Let's explore the best ones.
+            Postman is great, but it&apos;s not the only option. Whether you need something lighter, faster, or with 
+            different features, there are excellent free alternatives available. Let&apos;s explore the best ones.
           </p>
 
           <h2 className="text-3xl font-bold mt-12 mb-6">Why Look for Alternatives?</h2>
@@ -334,9 +334,9 @@ export default function PostmanAlternativesPage() {
               <h4 className="font-semibold mb-2">Choose Mini Postman if:</h4>
               <ul className="text-sm space-y-1 text-muted-foreground">
                 <li>• You need quick, no-setup API testing</li>
-                <li>• You're on a shared or public computer</li>
+                <li>• You&apos;re on a shared or public computer</li>
                 <li>• You want something lightweight and fast</li>
-                <li>• You don't need team collaboration features</li>
+                <li>• You don&apos;t need team collaboration features</li>
               </ul>
             </div>
             
@@ -377,7 +377,7 @@ export default function PostmanAlternativesPage() {
 
           <h2 className="text-3xl font-bold mt-12 mb-4">Conclusion</h2>
           <p className="text-muted-foreground leading-relaxed">
-            There's no one-size-fits-all solution. The best API testing tool depends on your workflow, team size, 
+            There&apos;s no one-size-fits-all solution. The best API testing tool depends on your workflow, team size, 
             and specific needs. Try a few options and see what works best for you. The good news? Most of these 
             tools are free, so you can experiment without any cost.
           </p>

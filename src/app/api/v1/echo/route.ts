@@ -38,7 +38,7 @@ async function echoResponse(request: NextRequest) {
         body = text;
       }
     }
-  } catch (e) {
+  } catch {
     // Body might be empty or not readable
   }
 

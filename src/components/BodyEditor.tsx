@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
@@ -12,23 +12,19 @@ interface BodyEditorProps {
 }
 
 export function BodyEditor({ value, onChange }: BodyEditorProps) {
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
+  const error = useMemo(() => {
     if (value.trim() && !isValidJson(value)) {
-      setError('Invalid JSON syntax');
-    } else {
-      setError(null);
+      return 'Invalid JSON syntax';
     }
+    return null;
   }, [value]);
 
   const formatJson = () => {
     try {
       const parsed = JSON.parse(value);
       onChange(JSON.stringify(parsed, null, 2));
-      setError(null);
     } catch {
-      setError('Cannot format invalid JSON');
+      // Invalid JSON, user will see error
     }
   };
 

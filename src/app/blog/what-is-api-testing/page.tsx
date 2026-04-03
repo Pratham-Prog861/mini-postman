@@ -66,14 +66,14 @@ export default function WhatIsApiTestingPage() {
         {/* Content */}
         <div className="prose prose-zinc dark:prose-invert max-w-none">
           <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-            API testing is a crucial part of modern software development. Whether you're building a mobile app, 
+            API testing is a crucial part of modern software development. Whether you&apos;re building a mobile app, 
             web application, or microservices architecture, understanding how to test APIs effectively can save 
             you countless hours of debugging and ensure your applications work reliably.
           </p>
 
           <h2 className="text-3xl font-bold mt-12 mb-4">What is an API?</h2>
           <p className="text-muted-foreground leading-relaxed mb-6">
-            API stands for Application Programming Interface. It's a set of rules and protocols that allows 
+            API stands for Application Programming Interface. It&apos;s a set of rules and protocols that allows 
             different software applications to communicate with each other. Think of it as a waiter in a restaurant: 
             you (the client) tell the waiter (the API) what you want, and the waiter brings your order from the 
             kitchen (the server).
@@ -81,10 +81,10 @@ export default function WhatIsApiTestingPage() {
 
           <div className="bg-muted/50 border rounded-lg p-6 my-8">
             <h3 className="text-xl font-semibold mb-3">Real-World Example</h3>
-            <p className="text-sm text-muted-foreground mb-3">
-              When you use a weather app on your phone, the app doesn't store all the weather data. Instead, 
-              it makes an API request to a weather service, which returns the current weather information.
-            </p>
+              <p className="text-sm text-muted-foreground mb-3">
+                When you use a weather app on your phone, the app doesn&apos;t store all the weather data. Instead, 
+                it makes an API request to a weather service, which returns the current weather information.
+              </p>
             <code className="block bg-background p-3 rounded text-sm">
               GET https://api.weather.com/v1/current?city=NewYork
             </code>
@@ -247,7 +247,7 @@ export default function WhatIsApiTestingPage() {
             <div className="flex items-start gap-3">
               <span className="text-2xl">1️⃣</span>
               <div>
-                <strong>Test Early and Often:</strong> Don't wait until the end of development
+                <strong>Test Early and Often:</strong> Don&apos;t wait until the end of development
               </div>
             </div>
             <div className="flex items-start gap-3">

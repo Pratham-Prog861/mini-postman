@@ -1,5 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Check if URL targets localhost or private network
+ * Vercel serverless functions cannot reach private networks
+ */
+function isLocalhostOrPrivate(urlString: string): boolean {
+  try {
+    const url = new URL(urlString);
+    const hostname = url.hostname.toLowerCase();
+
+    // Check for localhost variants
+    if (
+      hostname === "localhost" ||
+      hostname === "127.0.0.1" ||
+      hostname === "::1" ||
+      hostname.startsWith("127.")
+    ) {
+      return true;
+    }
+
+    // Check for private IP ranges (RFC 1918)
+    const ipMatch = hostname.match(/^(\d+\.\d+\.\d+\.\d+)$/);
+    if (ipMatch) {
+      const parts = ipMatch[1].split(".").map(Number);
+      // 10.0.0.0/8
+      if (parts[0] === 10) return true;
+      // 172.16.0.0/12
+      if (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) return true;
+      // 192.168.0.0/16
+      if (parts[0] === 192 && parts[1] === 168) return true;
+    }
+
+    // Check for .local mDNS domains
+    if (hostname.endsWith(".local")) return true;
+
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -9,6 +49,24 @@ export async function POST(request: NextRequest) {
     if (!url || typeof url !== "string") {
       return NextResponse.json(
         { error: "Invalid URL provided" },
+        { status: 400 }
+      );
+    }
+
+    // Check for localhost/private network targets
+    if (isLocalhostOrPrivate(url)) {
+      return NextResponse.json(
+        {
+          data: null,
+          headers: {},
+          status: 0,
+          statusText: "Localhost Blocked",
+          time: 0,
+          error: "RESTRICTED_ACCESS",
+          errorDetail:
+            "Cannot access localhost from a deployed website. Vercel's servers cannot reach your local development server.",
+          solution: "Use a tunneling service like ngrok, Cloudflare Tunnel, or run this tool locally.",
+        },
         { status: 400 }
       );
     }

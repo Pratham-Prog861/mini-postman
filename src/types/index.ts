@@ -26,6 +26,17 @@ export interface ApiRequest {
   timestamp: number;
 }
 
+export type ApiErrorType =
+  | "VALIDATION_ERROR"
+  | "CONNECTION_REFUSED"
+  | "CORS_ERROR"
+  | "MIXED_CONTENT"
+  | "TIMEOUT"
+  | "LOCALHOST_BLOCKED"
+  | "NETWORK_ERROR"
+  | "HTTP_ERROR"
+  | "UNKNOWN";
+
 export interface ApiResponse {
   data: unknown;
   headers: Record<string, string>;
@@ -33,12 +44,9 @@ export interface ApiResponse {
   statusText: string;
   time: number;
   error?: string;
-  errorType?:
-    | "NETWORK_ERROR"
-    | "CORS_ERROR"
-    | "RESTRICTED_ACCESS"
-    | "TIMEOUT"
-    | "UNKNOWN";
+  errorType?: ApiErrorType;
+  errorDetail?: string;
+  solution?: string;
 }
 
 export interface ApiError {

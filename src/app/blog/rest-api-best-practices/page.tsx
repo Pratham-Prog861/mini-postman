@@ -59,8 +59,8 @@ export default function RestApiBestPracticesPage() {
 
         <div className="prose prose-zinc dark:prose-invert max-w-none">
           <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-            Building a great REST API is more than just making endpoints work. It's about creating an intuitive, 
-            consistent, and maintainable interface that developers love to use. Let's explore the essential best 
+            Building a great REST API is more than just making endpoints work. It&apos;s about creating an intuitive, 
+            consistent, and maintainable interface that developers love to use. Let&apos;s explore the essential best 
             practices that separate good APIs from great ones.
           </p>
 
@@ -160,7 +160,7 @@ export default function RestApiBestPracticesPage() {
               <div className="flex items-center gap-3">
                 <span className="text-green-500">✓</span>
                 <code>/api/users/123/posts</code>
-                <span className="text-muted-foreground">- Get user's posts</span>
+                <span className="text-muted-foreground">- Get user&apos;s posts</span>
               </div>
             </div>
           </div>
@@ -219,7 +219,7 @@ export default function RestApiBestPracticesPage() {
                 <div className="flex items-start gap-3">
                   <code className="font-mono font-bold">404</code>
                   <div>
-                    <strong>Not Found</strong> - Resource doesn't exist
+                    <strong>Not Found</strong> - Resource doesn&apos;t exist
                   </div>
                 </div>
               </div>
@@ -302,7 +302,7 @@ export default function RestApiBestPracticesPage() {
 
           <h2 className="text-3xl font-bold mt-12 mb-6">7. Use Pagination for Large Collections</h2>
           <p className="text-muted-foreground leading-relaxed mb-4">
-            Don't return thousands of records at once. Implement pagination to improve performance.
+            Don&apos;t return thousands of records at once. Implement pagination to improve performance.
           </p>
           
           <div className="bg-muted/50 border rounded-lg p-4 mb-8">
@@ -355,7 +355,7 @@ export default function RestApiBestPracticesPage() {
 
           <h2 className="text-3xl font-bold mt-12 mb-6">9. Use HTTPS Always</h2>
           <p className="text-muted-foreground leading-relaxed mb-6">
-            Security isn't optional. Always use HTTPS to encrypt data in transit. No exceptions.
+            Security isn&apos;t optional. Always use HTTPS to encrypt data in transit. No exceptions.
           </p>
 
           <h2 className="text-3xl font-bold mt-12 mb-6">10. Document Your API</h2>
